@@ -4,5 +4,6 @@ import com.unip.SistemaEducacional.models.Enrollment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface EnrollmentRepository extends JpaRepository<Enrollment, String> {
+    Enrollment findByStudent_Cpf(String cpf);
 }
 

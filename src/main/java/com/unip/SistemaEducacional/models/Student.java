@@ -25,6 +25,8 @@ public class Student {
     private String sexo;
     @Column(name="telefone")
     private String telefone;
+    @Column(name="endereco")
+    private String endereco;
 
     @OneToMany(mappedBy = "student")
     private List<Enrollment> enrollments;

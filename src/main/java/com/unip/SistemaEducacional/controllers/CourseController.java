@@ -21,7 +21,7 @@ public class CourseController {
     }
 
     @GetMapping("/{codigoPrograma}")
-    public ResponseEntity<Course> getCourseByCodigo(@PathVariable String codigoPrograma) {
+    public ResponseEntity<Course> getCourseByCodigo(@PathVariable Integer codigoPrograma) {
         return courseRepository.findById(codigoPrograma)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -33,7 +33,7 @@ public class CourseController {
     }
 
     @PutMapping("/{codigoPrograma}")
-    public ResponseEntity<Course> updateCourse(@PathVariable String codigoPrograma, @RequestBody Course course) {
+    public ResponseEntity<Course> updateCourse(@PathVariable Integer codigoPrograma, @RequestBody Course course) {
         return courseRepository.findById(codigoPrograma)
                 .map(existingCourse -> {
                     existingCourse.setNomeCurso(course.getNomeCurso());
@@ -47,8 +47,52 @@ public class CourseController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @PatchMapping("/{codigoPrograma}/name")
+    public ResponseEntity<Course> changeCourseName(@PathVariable Integer codigoPrograma, @RequestBody String newName) {
+        return courseRepository.findById(codigoPrograma)
+                .map(existingCourse -> {
+                    existingCourse.setNomeCurso(newName);
+                    Course updatedCourse = courseRepository.save(existingCourse);
+                    return ResponseEntity.ok(updatedCourse);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PatchMapping("/{codigoPrograma}/level")
+    public ResponseEntity<Course> changeCourseLevel(@PathVariable Integer codigoPrograma, @RequestBody String newLevel) {
+        return courseRepository.findById(codigoPrograma)
+                .map(existingCourse -> {
+                    existingCourse.setNivelDoCurso(newLevel);
+                    Course updatedCourse = courseRepository.save(existingCourse);
+                    return ResponseEntity.ok(updatedCourse);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PatchMapping("/{codigoPrograma}/duration")
+    public ResponseEntity<Course> changeCourseDuration(@PathVariable Integer codigoPrograma, @RequestBody String newDuration) {
+        return courseRepository.findById(codigoPrograma)
+                .map(existingCourse -> {
+                    existingCourse.setDuracao(newDuration);
+                    Course updatedCourse = courseRepository.save(existingCourse);
+                    return ResponseEntity.ok(updatedCourse);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PatchMapping("/{codigoPrograma}/description")
+    public ResponseEntity<Course> changeCourseDescription(@PathVariable Integer codigoPrograma, @RequestBody String newDescription) {
+        return courseRepository.findById(codigoPrograma)
+                .map(existingCourse -> {
+                    existingCourse.setDescricao(newDescription);
+                    Course updatedCourse = courseRepository.save(existingCourse);
+                    return ResponseEntity.ok(updatedCourse);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @DeleteMapping("/{codigoPrograma}")
-    public ResponseEntity<Object> deleteCourse(@PathVariable String codigoPrograma) {
+    public ResponseEntity<Object> deleteCourse(@PathVariable Integer codigoPrograma) {
         return courseRepository.findById(codigoPrograma)
                 .map(existingCourse -> {
                     courseRepository.delete(existingCourse);
