@@ -12,11 +12,11 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="codigo")
-    private int codigoPrograma;
+    private int codigoCurso;
     @Column(name="nomeCurso")
-    private String nomePrograma;
+    private String nomeCurso;
     @Column(name="nivelDoCurso")
-    private String nivelDoPrograma;
+    private String nivelDoCurso;
     @Column(name="duracao")
     private String duracao;
     @Column(name="horario")

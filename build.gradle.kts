@@ -27,6 +27,7 @@ extra["springCloudAzureVersion"] = "5.17.1"
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.azure.spring:spring-cloud-azure-starter")
 	implementation("com.azure.spring:spring-cloud-azure-starter-jdbc-mysql")
 	compileOnly("org.projectlombok:lombok")
