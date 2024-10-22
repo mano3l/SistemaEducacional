@@ -28,6 +28,6 @@ public class Student {
     @Column(name="endereco")
     private String endereco;
 
-    @OneToMany(mappedBy = "student")
-    private List<Enrollment> enrollments;
+    @OneToOne(mappedBy = "student")
+    private Enrollment enrollment;
 }
