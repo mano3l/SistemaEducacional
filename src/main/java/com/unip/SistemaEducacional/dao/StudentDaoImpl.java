@@ -1,4 +1,4 @@
-package com.unip.SistemaEducacional.services;
+package com.unip.SistemaEducacional.dao;
 
 import com.unip.SistemaEducacional.models.Student;
 import com.unip.SistemaEducacional.repositories.StudentRepository;
@@ -9,85 +9,95 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class StudentService {
+public class StudentDaoImpl {
 
     private final StudentRepository studentRepository;
 
     @Autowired
-    public StudentService(StudentRepository studentRepository) {
+    public StudentDaoImpl(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
 
+    // SELECT * FROM Student
     public List<Student> getAllStudents() {
         return studentRepository.findAll();
     }
 
+    // SELECT * FROM Student WHERE id = ?
     public Optional<Student> getStudentById(Integer id) {
         return studentRepository.findById(id);
     }
 
+    // INSERT INTO Student (cpf, lastName, age, sex, phone) VALUES (?, ?, ?, ?, ?)
     public Student createStudent(Student student) {
         return studentRepository.save(student);
     }
 
+    // UPDATE Student SET cpf = ?, lastName = ?, age = ?, sex = ?, phone = ? WHERE id = ?
     public Optional<Student> updateStudent(Integer id, Student student) {
         return studentRepository.findById(id)
                 .map(existingStudent -> {
                     existingStudent.setCpf(student.getCpf());
-                    existingStudent.setNome(student.getNome());
-                    existingStudent.setSobrenome(student.getSobrenome());
-                    existingStudent.setIdade(student.getIdade());
-                    existingStudent.setSexo(student.getSexo());
-                    existingStudent.setTelefone(student.getTelefone());
+                    existingStudent.setLastName(student.getLastName());
+                    existingStudent.setAge(student.getAge());
+                    existingStudent.setSex(student.getSex());
+                    existingStudent.setPhone(student.getPhone());
                     return studentRepository.save(existingStudent);
                 });
     }
 
+    // SELECT * FROM Student WHERE cpf = ?
     public Optional<Student> getStudentByCpf(String cpf) {
         return studentRepository.findByCpf(cpf);
     }
 
-    public Optional<Student> updateStudentName(Integer id, String nome, String sobrenome) {
+    // UPDATE Student SET name = ?, lastName = ? WHERE id = ?
+    public Optional<Student> updateStudentName(Integer id, String nome, String lastName) {
         return studentRepository.findById(id)
                 .map(existingStudent -> {
-                    existingStudent.setNome(nome);
-                    existingStudent.setSobrenome(sobrenome);
+                    existingStudent.setName(nome);
+                    existingStudent.setLastName(lastName);
                     return studentRepository.save(existingStudent);
                 });
     }
 
-    public Optional<Student> updateStudentIdade(Integer id, Integer idade) {
+    // UPDATE Student SET age = ? WHERE id = ?
+    public Optional<Student> updateStudentAge(Integer id, Integer age) {
         return studentRepository.findById(id)
                 .map(existingStudent -> {
-                    existingStudent.setIdade(idade);
+                    existingStudent.setAge(age);
                     return studentRepository.save(existingStudent);
                 });
     }
 
-    public Optional<Student> updateStudentSexo(Integer id, String sexo) {
+    // UPDATE Student SET sex = ? WHERE id = ?
+    public Optional<Student> updateStudentSex(Integer id, String sex) {
         return studentRepository.findById(id)
                 .map(existingStudent -> {
-                    existingStudent.setSexo(sexo);
+                    existingStudent.setSex(sex);
                     return studentRepository.save(existingStudent);
                 });
     }
 
-    public Optional<Student> updateStudentTelefone(Integer id, String telefone) {
+    // UPDATE Student SET phone = ? WHERE id = ?
+    public Optional<Student> updateStudentPhone(Integer id, String phone) {
         return studentRepository.findById(id)
                 .map(existingStudent -> {
-                    existingStudent.setTelefone(telefone);
+                    existingStudent.setPhone(phone);
                     return studentRepository.save(existingStudent);
                 });
     }
 
-    public Optional<Student> updateStudentEndereco(Integer id, String endereco) {
+    // UPDATE Student SET address = ? WHERE id = ?
+    public Optional<Student> updateStudentAddress(Integer id, String address) {
         return studentRepository.findById(id)
                 .map(existingStudent -> {
-                    existingStudent.setEndereco(endereco);
+                    existingStudent.setAddress(address);
                     return studentRepository.save(existingStudent);
                 });
     }
 
+    // DELETE FROM Student WHERE id = ?
     public Optional<Void> deleteStudent(Integer id) {
         return studentRepository.findById(id)
                 .map(existingStudent -> {
