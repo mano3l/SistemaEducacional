@@ -13,28 +13,28 @@ import java.time.LocalDate;
 public class Enrollment {
     @Id
     @Column(name="ra")
-    // CREATE COLUMN ra VARCHAR(255) PRIMARY KEY
+
     private String ra;
 
     @OneToOne
     @JoinColumn(name = "studentId", referencedColumnName = "id", nullable = false)
     @JsonIgnore
-    // CREATE COLUMN studentId INT NOT NULL
+
     // ALTER TABLE Enrollment ADD CONSTRAINT FK_studentId FOREIGN KEY (studentId) REFERENCES Student(id)
     private Student student;
 
     @Column(name="email")
-    // CREATE COLUMN email VARCHAR(255)
+
     private String email;
 
     @ManyToOne
     @JoinColumn(name = "courseCode", referencedColumnName = "code", nullable = false)
     @JsonIgnore
-    // CREATE COLUMN courseCode INT NOT NULL
+
     // ALTER TABLE Enrollment ADD CONSTRAINT FK_courseCode FOREIGN KEY (courseCode) REFERENCES Course(code)
     private Course course;
 
     @Column(name="enrollmentDate")
-    // CREATE COLUMN enrollmentDate DATE
+
     private LocalDate enrollmentDate;
 }

@@ -13,27 +13,27 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="courseCode")
-    // CREATE COLUMN courseCode INT AUTO_INCREMENT PRIMARY KEY
+
     private Integer courseCode;
 
     @Column(name="courseName")
-    // CREATE COLUMN courseName VARCHAR(255)
+
     private String courseName;
 
     @Column(name="courseLevel")
-    // CREATE COLUMN courseLevel VARCHAR(255)
+
     private String courseLevel;
 
     @Column(name="duration")
-    // CREATE COLUMN duration VARCHAR(255)
+
     private String duration;
 
     @Column(name="schedule")
-    // CREATE COLUMN schedule VARCHAR(255)
+
     private String schedule;
 
     @Column(name="description")
-    // CREATE COLUMN description VARCHAR(255)
+
     private String description;
 
     @OneToMany(mappedBy = "course")
