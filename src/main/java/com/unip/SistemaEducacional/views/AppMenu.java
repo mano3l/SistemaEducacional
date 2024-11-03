@@ -372,7 +372,13 @@ public class AppMenu extends JFrame {
         }
 
         // Criar e estilizar a tabela
-        JTable table = new JTable(data, columnNames);
+        JTable table = new JTable(data, columnNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Não permite edição
+            }
+        };
+
         table.setRowHeight(25);
         table.setFont(new Font("SansSerif", Font.PLAIN, 14));
         table.setForeground(Color.WHITE);
@@ -739,7 +745,13 @@ public class AppMenu extends JFrame {
         }
 
         // Criar e estilizar a tabela
-        JTable table = new JTable(data, columnNames);
+        JTable table = new JTable(data, columnNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Não permite edição
+            }
+        };
+
         table.setRowHeight(25);
         table.setFont(new Font("SansSerif", Font.PLAIN, 14));
         table.setForeground(Color.WHITE);
@@ -766,7 +778,6 @@ public class AppMenu extends JFrame {
         buttonPanel.add(backButton);
 
         tableFrame.add(buttonPanel, BorderLayout.SOUTH);
-
         tableFrame.setVisible(true);
     }
 }
