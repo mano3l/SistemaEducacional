@@ -275,7 +275,7 @@ public class AppMenu extends JFrame {
                         updatedCourse.setDescription((String) rowData[5]);
 
                         CourseDaoImpl courseDao = new CourseDaoImpl(courseRepository);
-                        courseDao.updateCourse(Integer.valueOf((String) rowData[0]), updatedCourse);
+                        courseDao.updateCourse((Integer) rowData[0], updatedCourse);
 
                     } else if (tipo.equals("matricula")) {
                         Enrollment updatedEnrollment = new Enrollment();
@@ -769,7 +769,4 @@ public class AppMenu extends JFrame {
 
         tableFrame.setVisible(true);
     }
-
-
-
 }
