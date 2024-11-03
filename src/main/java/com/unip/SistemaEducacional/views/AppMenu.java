@@ -1,6 +1,5 @@
 package com.unip.SistemaEducacional.views;
 
-import com.unip.SistemaEducacional.dao.CourseDao;
 import com.unip.SistemaEducacional.dao.CourseDaoImpl;
 import com.unip.SistemaEducacional.dao.EnrollmentDaoImpl;
 import com.unip.SistemaEducacional.dao.StudentDaoImpl;
@@ -15,10 +14,8 @@ import org.springframework.stereotype.Component;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.Stack;
@@ -36,6 +33,16 @@ public class AppMenu extends JFrame {
         this.courseRepository = courseRepository;
         this.enrollmentRepository = enrollmentRepository;
         showMainMenu();
+    }
+
+    private String generateRa() {
+        // Lógica para gerar um RA aleatório (exemplo: 123456789)
+        return String.valueOf((int)(Math.random() * 1000000000));
+    }
+
+    // Método para gerar email baseado no ID do estudante
+    private String generateEmail(String name, String studentId) {
+        return name + studentId + "@example.com";
     }
 
     // Método para exibir o menu principal
@@ -584,29 +591,32 @@ public class AppMenu extends JFrame {
             });
             panel.add(btnCadastrar);
 
-        } else if (tipo.equals("matricula")) {
-            panel.setLayout(new GridLayout(5, 2, 5, 5)); // Ajustando para 5 linhas
+        }  else if (tipo.equals("matricula")) {
+            panel.setLayout(new GridLayout(4, 2, 5, 5)); // Ajustando para 4 linhas
 
             JTextField studentIdField = new JTextField(15);
             JTextField codigoCursoField = new JTextField(15);
-            JTextField raField = new JTextField(15);
-            JTextField emailField = new JTextField(15);
 
             panel.add(createLabel("ID do Estudante:", labelColor, labelFont));
             panel.add(studentIdField);
             panel.add(createLabel("Código do Curso:", labelColor, labelFont));
             panel.add(codigoCursoField);
-            panel.add(createLabel("RA do Estudante:", labelColor, labelFont));
-            panel.add(raField);
-            panel.add(createLabel("Email:", labelColor, labelFont));
-            panel.add(emailField);
 
             // Botão de cadastrar
-            btnCadastrar.addActionListener(e -> {
+            JButton btnCadastrarMatricula = new JButton("Cadastrar");
+            btnCadastrarMatricula.addActionListener(e -> {
                 String studentId = studentIdField.getText();
                 String codigoCurso = codigoCursoField.getText();
-                String ra = raField.getText();
-                String email = emailField.getText();
+
+                // Gerar RA e Email automaticamente
+                String ra = generateRa();
+                StudentDaoImpl studentDao = new StudentDaoImpl(studentRepository);
+                Optional<Student> student = studentDao.getStudentById(Integer.valueOf(studentId));
+                if (student.isPresent()) {
+                    student.get();
+                }
+                String name = student.get().getName();
+                String email = generateEmail(name, studentId);
 
                 Enrollment enrollment = new Enrollment();
                 enrollment.setRa(ra);
@@ -614,7 +624,7 @@ public class AppMenu extends JFrame {
                 enrollment.setEnrollmentDate(LocalDate.now());
 
                 // Verificar e associar estudante e curso
-                StudentDaoImpl studentDao = new StudentDaoImpl(studentRepository);
+
                 studentDao.getStudentById(Integer.parseInt(studentId)).ifPresent(enrollment::setStudent);
                 CourseDaoImpl courseDao = new CourseDaoImpl(courseRepository);
                 courseDao.getCourseByCode(Integer.parseInt(codigoCurso)).ifPresent(enrollment::setCourse);
@@ -622,10 +632,13 @@ public class AppMenu extends JFrame {
                 EnrollmentDaoImpl enrollmentDao = new EnrollmentDaoImpl(enrollmentRepository, courseRepository);
                 enrollmentDao.createEnrollment(enrollment);
 
-                JOptionPane.showMessageDialog(this, "Matrícula cadastrada com sucesso!");
+                JOptionPane.showMessageDialog(this, "Matrícula cadastrada com sucesso!\nRA: " + ra + "\nEmail: " + email);
             });
-            panel.add(btnCadastrar);
+            panel.add(btnCadastrarMatricula);
         }
+
+
+
 
 
         // Adiciona botão Voltar no final
