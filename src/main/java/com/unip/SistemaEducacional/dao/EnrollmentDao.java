@@ -13,4 +13,5 @@ public interface EnrollmentDao {
     Optional<Enrollment> changeStudentCourse(String ra, Integer courseCode);
     Optional<Enrollment> updateEnrollment(String ra, Enrollment enrollment);
     Optional<Void> deleteEnrollment(String ra);
+
 }

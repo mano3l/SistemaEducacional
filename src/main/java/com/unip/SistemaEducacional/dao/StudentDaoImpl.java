@@ -39,6 +39,7 @@ public class StudentDaoImpl {
                 .map(existingStudent -> {
                     existingStudent.setCpf(student.getCpf());
                     existingStudent.setLastName(student.getLastName());
+                    existingStudent.setName(student.getName());
                     existingStudent.setAge(student.getAge());
                     existingStudent.setSex(student.getSex());
                     existingStudent.setPhone(student.getPhone());

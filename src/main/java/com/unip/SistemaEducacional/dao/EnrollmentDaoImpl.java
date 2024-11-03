@@ -33,6 +33,16 @@ public class EnrollmentDaoImpl {
         return enrollmentRepository.findById(ra);
     }
 
+    public List<Enrollment> getEnrollmentsByStudentId(Integer studentId) {
+        return enrollmentRepository.findByStudentId(studentId);
+    }
+
+
+    public List<Enrollment> getEnrollmentsByCourseCode(Integer courseCode) {
+        return enrollmentRepository.findByCourseCode(courseCode);
+    }
+
+
     // INSERT INTO Enrollment (ra, studentId, email, courseCode, enrollmentDate) VALUES (?, ?, ?, ?, ?)
     public Enrollment createEnrollment(Enrollment enrollment) {
         return enrollmentRepository.save(enrollment);
