@@ -59,14 +59,14 @@ public class AppMenu extends JFrame {
 
         // Button font and style customization
         Font buttonFont = new Font("SansSerif", Font.BOLD, 18);
-        Color buttonColor = new Color(45, 185, 255); // Light blue
+        Color buttonColor = new Color(27, 82, 153); // Light blue
         Color buttonTextColor = Color.WHITE;
 
         // Creating and styling buttons
-        JButton btnCurso = createStyledButton("Gerenciar Curso", buttonFont, buttonColor, buttonTextColor);
+        JButton btnCurso = createStyledButton("Gerenciar Curso", buttonFont, new Color(255, 136, 17), buttonTextColor);
         JButton btnEstudante = createStyledButton("Gerenciar Estudante", buttonFont, buttonColor, buttonTextColor);
-        JButton btnMatricula = createStyledButton("Gerenciar Matrícula", buttonFont, buttonColor, buttonTextColor);
-        JButton btnSair = createStyledButton("Sair", buttonFont, new Color(255, 80, 80), buttonTextColor); // Red for "Sair"
+        JButton btnMatricula = createStyledButton("Gerenciar Matrícula", buttonFont, new Color(105, 143, 63), buttonTextColor);
+        JButton btnSair = createStyledButton("Sair", buttonFont, new Color(101, 101, 101), buttonTextColor); // Red for "Sair"
 
         // Action listeners
         btnCurso.addActionListener(e -> showSubMenu("curso"));
@@ -108,7 +108,15 @@ public class AppMenu extends JFrame {
 
         // Button font and style customization
         Font buttonFont = new Font("SansSerif", Font.BOLD, 18);
-        Color buttonColor = new Color(45, 185, 255); // Light blue
+        Color buttonColor;
+        if (tipo == "estudante"){
+            buttonColor = new Color(27, 82, 153);
+        } else if (tipo == "matricula") {
+            buttonColor = new Color(105, 143, 63);
+        }else {
+            buttonColor = new Color(255, 136, 17);
+        }
+
         Color buttonTextColor = Color.WHITE;
 
         // Creating and styling buttons
@@ -116,7 +124,7 @@ public class AppMenu extends JFrame {
         JButton btnCadastrar = createStyledButton("Cadastrar", buttonFont, buttonColor, buttonTextColor);
         JButton btnEditar = createStyledButton("Editar", buttonFont, buttonColor, buttonTextColor);
         JButton btnExcluir = createStyledButton("Excluir", buttonFont, buttonColor, buttonTextColor);
-        JButton btnVoltar = createStyledButton("Voltar", buttonFont, new Color(255, 80, 80), buttonTextColor); // Red for "Voltar"
+        JButton btnVoltar = createStyledButton("Voltar", buttonFont, new Color(101, 101, 101), buttonTextColor);
 
         // Action listeners
         btnListar.addActionListener(e -> showTableWindow(tipo));
